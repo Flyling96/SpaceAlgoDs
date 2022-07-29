@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MeshBuilderize
+namespace Geometry
 {
     [Serializable]
     public sealed class Vertex : IEquatable<Vertex>

@@ -1,32 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Geometry;
 
 namespace MeshBuilderize
 {
+    [RequireComponent(typeof(MeshFilter))]
     public class BuilderMesh : MonoBehaviour
     {
-        [HideInInspector]
-        public Vector3[] m_Vertices = new Vector3[0];
+        public Model m_Model = null;
 
-        [HideInInspector]
-        public Face[] m_Faces = new Face[0];
-
-        public void Init(List<Vertex> vertices, List<Face> faces)
+        public void Builderize()
         {
-            m_Vertices = new Vector3[vertices.Count];
-            for (int i = 0; i < vertices.Count; i++)
+            var mesh = transform.GetComponent<MeshFilter>().mesh;
+            if(mesh == null)
             {
-                m_Vertices[i] = vertices[i].Position;
+                return;
             }
 
-            m_Faces = faces.ToArray();
-        }
-
-        public void Clear()
-        {
-            m_Vertices = new Vector3[0];
-            m_Faces = new Face[0];
+            m_Model = new Model(mesh, transform);
         }
     }
 }

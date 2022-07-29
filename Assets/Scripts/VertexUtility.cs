@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace MeshBuilderize
+namespace Geometry
 {
-    public static class MeshUtility
+    public static class VertexUtility
     {
-        public static Vertex[] GetVertices(this Mesh mesh)
+        public static Vertex[] GetVertices(Mesh mesh)
         {
             if (mesh == null)
                 return null;
@@ -17,16 +16,19 @@ namespace MeshBuilderize
 
             Vector3[] positions = mesh.vertices;
 
-            bool _hasPositions = positions != null && positions.Count() == vertexCount;
-
             for (int i = 0; i < vertexCount; i++)
             {
                 v[i] = new Vertex();
-
-                if (_hasPositions)
-                    v[i].Position = positions[i];
+                v[i].Position = positions[i];
             }
 
+            return v;
+        }
+
+        public static Vertex TransformVertex(this Transform transform, Vertex vertex)
+        {
+            var v = new Vertex();
+            v.Position = transform.TransformPoint(vertex.Position);
             return v;
         }
     }
