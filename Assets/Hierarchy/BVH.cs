@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Geometry;
+using System;
 
 namespace Hierarchy
 {
@@ -9,12 +10,17 @@ namespace Hierarchy
     {
         AABB AABB { get; }
     }
-
+   
     public class BVH
     {
         BVHNode m_Root;
 
-        public BVHNode Build(List<IBVHContent> contents,int nodeContentCount = 1)
+        public void BuildTree(List<IBVHContent> contents, int nodeContentCount = 1)
+        {
+            m_Root = Build(contents, nodeContentCount);
+        }
+
+        private BVHNode Build(List<IBVHContent> contents,int nodeContentCount = 1)
         {
             if(contents.Count <= nodeContentCount)
             {
@@ -22,8 +28,8 @@ namespace Hierarchy
             }
 
             var children = Divide(contents);
-            var left = Build(children.Item1);
-            var right = Build(children.Item2);
+            var left = Build(children.Item1, nodeContentCount);
+            var right = Build(children.Item2, nodeContentCount);
 
             return new BVHNode(left, right);
         }
