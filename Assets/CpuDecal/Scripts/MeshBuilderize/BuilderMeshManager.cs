@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CustomHierarchy;
+using Hierarchy;
 using Geometry;
 using UnityEditor;
 
@@ -33,12 +33,27 @@ namespace MeshBuilderize
             m_BVHTree.BuildTree(bvhContentList);
         }
 
+        public bool CollideBVHTree(AABB aabb, List<IBVHContent> contents)
+        {
+            if(m_BVHTree == null)
+            {
+                Debug.LogError("BVHTree Don't Build");
+                return false;
+            }
+
+            return m_BVHTree.CollideAABB(aabb, contents);
+
+        }
+
     }
 
 #if UNITY_EDITOR
     [ExecuteInEditMode]
     public partial class BuilderMeshManager
     {
+        public const string ModelRootName = "StaticModels";
+        public const string DecalRootName = "Decals";
+
         public int m_DebugDepth = -1;
 
         public GameObject m_ModelRoot;
@@ -48,7 +63,7 @@ namespace MeshBuilderize
         {
             if(m_ModelRoot == null)
             {
-                m_ModelRoot = new GameObject("Models");
+                m_ModelRoot = new GameObject(ModelRootName);
                 m_ModelRoot.transform.SetParent(transform);
                 m_ModelRoot.transform.localPosition = Vector3.zero;
                 m_ModelRoot.transform.localRotation = Quaternion.identity;
@@ -57,7 +72,7 @@ namespace MeshBuilderize
 
             if(m_DecalRoot == null)
             {
-                m_DecalRoot = new GameObject("Decals");
+                m_DecalRoot = new GameObject(DecalRootName);
                 m_DecalRoot.transform.SetParent(transform);
                 m_DecalRoot.transform.localPosition = Vector3.zero;
                 m_DecalRoot.transform.localRotation = Quaternion.identity;
@@ -65,7 +80,7 @@ namespace MeshBuilderize
             }
         }
 
-        public void Builderize()
+        public void StaticModelBuilderize()
         {
             m_BuilderMeshList.Clear();
             var meshFilters = m_ModelRoot.transform.GetComponentsInChildren<MeshFilter>();
@@ -88,7 +103,7 @@ namespace MeshBuilderize
                     builderMesh = Undo.AddComponent<BuilderMesh>(meshFilter.gameObject);
                 }
 
-                builderMesh.Builderize();
+                builderMesh.Builderize(true);
                 m_BuilderMeshList.Add(builderMesh);
             }
 

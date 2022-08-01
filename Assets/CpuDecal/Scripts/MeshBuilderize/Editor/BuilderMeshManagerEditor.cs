@@ -24,9 +24,9 @@ namespace MeshBuilderize
             }
 
             var manager = target as BuilderMeshManager;
-            if (GUILayout.Button("Builderize"))
+            if (GUILayout.Button("StaticModelBuilderize"))
             {
-                manager.Builderize();
+                manager.StaticModelBuilderize();
             }
             else if (GUILayout.Button("BuildBVHTree"))
             {

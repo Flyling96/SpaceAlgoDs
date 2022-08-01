@@ -4,7 +4,7 @@ using UnityEngine;
 using Geometry;
 using System;
 
-namespace CustomHierarchy
+namespace Hierarchy
 {
     public interface IBVHContent
     {

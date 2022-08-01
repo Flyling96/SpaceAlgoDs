@@ -4,7 +4,7 @@ using UnityEngine;
 using Geometry;
 using System;
 
-namespace CustomHierarchy
+namespace Hierarchy
 {
     [Serializable]
     public partial class BVHNode : ISerializationCallbackReceiver
@@ -67,7 +67,7 @@ namespace CustomHierarchy
                 }
                 if(m_Right != null)
                 {
-                    res |= m_Left.Collide(other, contents);
+                    res |= m_Right.Collide(other, contents);
                 }
 
                 return res;

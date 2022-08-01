@@ -1690,7 +1690,7 @@ GameObject:
   - component: {fileID: 8360175234651805903}
   - component: {fileID: 8360175234651805902}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: BVH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1747,7 +1747,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -18.470127, y: 0.6999998, z: -17.9}
@@ -1759,7 +1759,7 @@ MonoBehaviour:
           id: 2
         m_SerializeContent: []
     00000001:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -17.06, y: 0.6999998, z: -17.9}
@@ -1771,7 +1771,7 @@ MonoBehaviour:
           id: 4
         m_SerializeContent: []
     00000002:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -18.470127, y: 0.6999998, z: -5.93038}
@@ -1783,7 +1783,7 @@ MonoBehaviour:
           id: 6
         m_SerializeContent: []
     00000003:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: -17.9}
@@ -1795,7 +1795,7 @@ MonoBehaviour:
           id: 8
         m_SerializeContent: []
     00000004:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -17.06, y: 16.282192, z: -11.4790325}
@@ -1807,7 +1807,7 @@ MonoBehaviour:
           id: 10
         m_SerializeContent: []
     00000005:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -18.470127, y: 1.9669876, z: -5.93038}
@@ -1819,7 +1819,7 @@ MonoBehaviour:
           id: 12
         m_SerializeContent: []
     00000006:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: 4.3100004}
@@ -1831,7 +1831,7 @@ MonoBehaviour:
           id: 14
         m_SerializeContent: []
     00000007:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: -17.9}
@@ -1843,7 +1843,7 @@ MonoBehaviour:
           id: 16
         m_SerializeContent: []
     00000008:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -11.17, y: 7.24, z: -11.4790325}
@@ -1855,7 +1855,7 @@ MonoBehaviour:
           id: 18
         m_SerializeContent: []
     00000009:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -17.06, y: 16.282192, z: -11.4790325}
@@ -1868,7 +1868,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175233539577866}
     0000000A:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -4.5300007, y: 17.272192, z: -3.04}
@@ -1881,7 +1881,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175233422553978}
     0000000B:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -15.465331, y: 2.113396, z: -5.93038}
@@ -1894,7 +1894,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175233392046296}
     0000000C:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -18.470127, y: 1.9669876, z: -0.17999935}
@@ -1907,7 +1907,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175233367782166}
     0000000D:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: 7.7799997}
@@ -1919,7 +1919,7 @@ MonoBehaviour:
           id: 21
         m_SerializeContent: []
     0000000E:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: 4.3100004}
@@ -1932,7 +1932,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175234610154561}
     0000000F:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: -2.9990501}
@@ -1945,7 +1945,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175234801667325}
     00000010:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: -17.9}
@@ -1958,7 +1958,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175234529117301}
     00000011:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -11.17, y: 7.24, z: -11.4790325}
@@ -1970,7 +1970,7 @@ MonoBehaviour:
           id: 23
         m_SerializeContent: []
     00000012:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -4.5300007, y: 7.24, z: -11.4790325}
@@ -1984,7 +1984,7 @@ MonoBehaviour:
     00000013:
       type: {class: , ns: , asm: }
     00000014:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: 11.47}
@@ -1997,7 +1997,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175234283613071}
     00000015:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -12.588447, y: 0.6999998, z: 7.7799997}
@@ -2010,7 +2010,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175232954732730}
     00000016:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -11.17, y: 7.24, z: -11.4790325}
@@ -2023,7 +2023,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175234698635872}
     00000017:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -10.73, y: 7.24, z: -7.04}
@@ -2036,7 +2036,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175234316980972}
     00000018:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -4.5300007, y: 7.24, z: -7.58}
@@ -2049,7 +2049,7 @@ MonoBehaviour:
         m_SerializeContent:
         - {fileID: 8360175234405837884}
     00000019:
-      type: {class: BVHNode, ns: CustomHierarchy, asm: Assembly-CSharp}
+      type: {class: BVHNode, ns: Hierarchy, asm: Assembly-CSharp}
       data:
         m_AABB:
           m_Min: {x: -4.5300007, y: 7.24, z: -11.4790325}

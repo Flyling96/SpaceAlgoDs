@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BSP : MonoBehaviour
+namespace Hierarchy
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BSP
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -31,5 +31,13 @@ namespace Geometry
             v.Position = transform.TransformPoint(vertex.Position);
             return v;
         }
+
+        public static AABB TransformAABB(this Transform transform, AABB aabb)
+        {
+            AABB res = new AABB();
+            res.m_Min = transform.TransformPoint(aabb.m_Min);
+            res.m_Max = transform.TransformPoint(aabb.m_Max);
+            return res;
+        }
     }
 }

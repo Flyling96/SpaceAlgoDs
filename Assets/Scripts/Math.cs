@@ -25,6 +25,14 @@ public struct AABB
 
         return true;
     }
+
+    public static AABB Identity()
+    {
+        AABB aabb = new AABB();
+        aabb.m_Max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+        aabb.m_Min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+        return aabb;
+    }
 }
 
 public static class Math

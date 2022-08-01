@@ -9,6 +9,8 @@ namespace Geometry
     [Serializable]
     public class Model
     {
+        public bool m_IsStatic = false;
+
         [HideInInspector]
         public Vertex[] m_Vertices = new Vertex[0];
 
@@ -23,12 +25,21 @@ namespace Geometry
             m_Faces = new Face[0];
         }
 
-        public Model(Mesh mesh, Transform transform)
+        public Model(Mesh mesh, Transform transform, bool isStatic = false)
         {
             if (transform == null)
                 throw new ArgumentNullException("transform");
 
-            var sourceVertices = VertexUtility.GetVertices(mesh).Select(x => transform.TransformVertex(x)).ToArray();
+            m_IsStatic = isStatic;
+            Vertex[] sourceVertices = null;
+            if (m_IsStatic)
+            {
+                sourceVertices = VertexUtility.GetVertices(mesh).Select(x => transform.TransformVertex(x)).ToArray();
+            }
+            else
+            {
+                sourceVertices = VertexUtility.GetVertices(mesh);
+            }
 
             List<Vertex> splitVertices = new List<Vertex>();
             List<Face> faces = new List<Face>();
