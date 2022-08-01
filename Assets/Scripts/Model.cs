@@ -6,18 +6,6 @@ using UnityEngine;
 
 namespace Geometry
 {
-    public struct AABB
-    {
-        public Vector3 m_Min;
-        public Vector3 m_Max;
-
-        public float GetSurfaceArea()
-        {
-            Vector3 diff = m_Max - m_Min;
-            return (diff.x * diff.y + diff.x * diff.z + diff.y * diff.y) * 2;
-        }
-}
-
     [Serializable]
     public class Model
     {

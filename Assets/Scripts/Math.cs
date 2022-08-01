@@ -1,6 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+[Serializable]
+public struct AABB
+{
+    public Vector3 m_Min;
+    public Vector3 m_Max;
+
+    public float GetSurfaceArea()
+    {
+        Vector3 diff = m_Max - m_Min;
+        return (diff.x * diff.y + diff.x * diff.z + diff.y * diff.y) * 2;
+    }
+
+    public bool IsCollide(AABB other)
+    {
+        if (other.m_Max.x < m_Min.x || other.m_Max.y < m_Min.y || other.m_Max.z < m_Min.z ||
+           other.m_Min.x > m_Max.x || other.m_Min.y > m_Max.y || other.m_Min.z > m_Max.z)
+        {
+            return false;
+        }
+
+        return true;
+    }
+}
 
 public static class Math
 {

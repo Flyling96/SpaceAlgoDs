@@ -4,34 +4,38 @@ using UnityEngine;
 using Geometry;
 using System;
 
-namespace Hierarchy
+namespace CustomHierarchy
 {
     public interface IBVHContent
     {
         AABB AABB { get; }
+
+        MonoBehaviour Mono { get; }
     }
    
-    public class BVH
+    [Serializable]
+    public partial class BVH
     {
+        [SerializeReference]
         BVHNode m_Root;
 
         public void BuildTree(List<IBVHContent> contents, int nodeContentCount = 1)
         {
-            m_Root = Build(contents, nodeContentCount);
+            m_Root = Build(contents, 0, nodeContentCount);
         }
 
-        private BVHNode Build(List<IBVHContent> contents,int nodeContentCount = 1)
+        private BVHNode Build(List<IBVHContent> contents, int depth, int nodeContentCount = 1)
         {
             if(contents.Count <= nodeContentCount)
             {
-                return new BVHNode(contents);
+                return new BVHNode(contents, depth);
             }
 
             var children = Divide(contents);
-            var left = Build(children.Item1, nodeContentCount);
-            var right = Build(children.Item2, nodeContentCount);
+            var left = Build(children.Item1, depth + 1, nodeContentCount);
+            var right = Build(children.Item2, depth + 1,nodeContentCount);
 
-            return new BVHNode(left, right);
+            return new BVHNode(left, right, depth);
         }
 
         public float GetSurfaceArea(Vector3 min,Vector3 max)
@@ -47,7 +51,7 @@ namespace Hierarchy
             int minMid = 0;
             float minCost = float.MaxValue;
 
-            List<float> reverseAreas = new List<float>(contents.Count);
+            float[] reverseAreas = new float[contents.Count];
             //x,y,z
             for (int axis = 0; axis < 3; axis++)
             {
@@ -55,7 +59,11 @@ namespace Hierarchy
                 else if (axis == 1) contents.Sort(SortYAxis);
                 else if (axis == 2) contents.Sort(SortZAxis);
 
-                reverseAreas.Clear();
+                for (int i = 0; i < reverseAreas.Length; i++)
+                {
+                    reverseAreas[i] = 0;
+                }
+
                 Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
                 Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
                 for (int i = contents.Count - 1; i > -1; i--)
@@ -68,7 +76,7 @@ namespace Hierarchy
                 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
                 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
 
-                for (int i = 0; i < contents.Count; i++)
+                for (int i = 0; i < contents.Count - 1; i++)
                 {
                     max = Vector3.Max(max, contents[i].AABB.m_Max);
                     min = Vector3.Min(min, contents[i].AABB.m_Min);
@@ -130,5 +138,32 @@ namespace Hierarchy
                 return 1;
             }
         }
+
+        #region Collide
+        public bool CollideAABB(AABB aabb, List<IBVHContent> contents)
+        {
+            if(m_Root == null)
+            {
+                return false;
+            }
+
+            return m_Root.Collide(aabb, contents);
+        }
+        #endregion
     }
+
+#if UNITY_EDITOR
+    public partial class BVH
+    {
+        public void DrawGizmos(int depth = -1)
+        {
+            if(m_Root == null)
+            {
+                return;
+            }
+
+            m_Root.DrawCustomGizmos(depth);
+        }
+    }
+#endif
 }
