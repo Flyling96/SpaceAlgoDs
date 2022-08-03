@@ -30,5 +30,12 @@ namespace Geometry
                 m_Position = value;
             }
         }
+
+        public Vertex Clone()
+        {
+            Vertex res = new Vertex();
+            res.Position = Position;
+            return res;
+        }
     }
 }

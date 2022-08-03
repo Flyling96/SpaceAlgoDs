@@ -16,6 +16,10 @@ namespace MeshBuilderize
             {
                 cpuDecal.CollideBVH();
             }
+            else if(GUILayout.Button("CaculateDecal"))
+            {
+                cpuDecal.CaculateDecal();
+            }
         }
     }
 }

@@ -97,7 +97,6 @@ namespace UnityEngine.ProBuilder.Csg
                 this.plane.w = list[0].plane.w;
             }
 
-
             if (this.polygons == null)
                 this.polygons = new List<Polygon>();
 

@@ -7,11 +7,15 @@ using UnityEngine;
 namespace Geometry
 {
     [Serializable]
-    public class Model
+    public class Model:ISerializationCallbackReceiver
     {
         public bool m_IsStatic = false;
 
         [HideInInspector]
+        [SerializeField]
+        private Vertex[] m_SourceVertices = new Vertex[0];
+
+        [NonSerialized]
         public Vertex[] m_Vertices = new Vertex[0];
 
         [HideInInspector]
@@ -21,6 +25,7 @@ namespace Geometry
 
         public void Clear()
         {
+            m_SourceVertices = new Vertex[0];
             m_Vertices = new Vertex[0];
             m_Faces = new Face[0];
         }
@@ -97,9 +102,43 @@ namespace Geometry
                 }
             }
 
-            m_Vertices = splitVertices.ToArray();
+            m_SourceVertices = splitVertices.ToArray();
+            m_Vertices = new Vertex[m_SourceVertices.Length];
+            for (int i = 0; i < m_SourceVertices.Length; i++)
+            {
+                m_Vertices[i] = m_SourceVertices[i].Clone();
+            }
             m_Faces = faces.ToArray();
             RefreshAABB();
+        }
+
+        public List<Polygon> ToPolygons()
+        {
+            List<Polygon> list = new List<Polygon>();
+
+            for (int s = 0; s < m_Faces.Length; s++)
+            {
+                var face = m_Faces[s];
+                var indices = face.m_Indices;
+                if(face.m_Indices == null)
+                {
+                    continue;
+                }
+
+                for (int i = 0; i < indices.Length; i += 3)
+                {
+                    List<Vertex> triangle = new List<Vertex>()
+                    {
+                        m_Vertices[indices[i + 0]],
+                        m_Vertices[indices[i + 1]],
+                        m_Vertices[indices[i + 2]]
+                    };
+
+                    list.Add(new Polygon(triangle));
+                }
+            }
+
+            return list;
         }
 
         private void RefreshAABB()
@@ -112,6 +151,38 @@ namespace Geometry
                 var vertex = m_Vertices[i];
                 m_AABB.m_Max = Vector3.Max(m_AABB.m_Max,vertex.Position);
                 m_AABB.m_Min = Vector3.Min(m_AABB.m_Min, vertex.Position);
+            }
+        }
+
+        public void UpdateTranform(Transform trans)
+        {
+            if(m_IsStatic)
+            {
+                return;
+            }
+
+            m_AABB.m_Max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+            m_AABB.m_Min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+            for (int i = 0; i < m_Vertices.Length; i++)
+            {
+                var vertex = m_Vertices[i];
+                vertex.Position = trans.TransformPoint(m_SourceVertices[i].Position);
+                m_AABB.m_Max = Vector3.Max(m_AABB.m_Max, vertex.Position);
+                m_AABB.m_Min = Vector3.Min(m_AABB.m_Min, vertex.Position);
+            }
+        }
+
+        public void OnBeforeSerialize()
+        {
+
+        }
+
+        public void OnAfterDeserialize()
+        {
+            m_Vertices = new Vertex[m_SourceVertices.Length];
+            for (int i = 0; i < m_SourceVertices.Length; i++)
+            {
+                m_Vertices[i] = m_SourceVertices[i].Clone();
             }
         }
     }

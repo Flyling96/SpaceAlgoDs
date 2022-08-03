@@ -47,4 +47,20 @@ public static class Math
             Mathf.Abs(a.z - b.z) < delta;
     }
 
+    private const float SimpleEquleEpsilon = 0.001f;
+
+    public static bool SimpleEqule(this Vector3 a, Vector3 b)
+    {
+        return Mathf.Abs(a.x - b.x) < SimpleEquleEpsilon
+            && Mathf.Abs(a.y - b.y) < SimpleEquleEpsilon
+            && Mathf.Abs(a.z - b.z) < SimpleEquleEpsilon;
+    }
+
+    public static bool SimpleEqule(this Quaternion a, Quaternion b)
+    {
+        return Mathf.Abs(a.x - b.x) < SimpleEquleEpsilon
+            && Mathf.Abs(a.y - b.y) < SimpleEquleEpsilon
+            && Mathf.Abs(a.z - b.z) < SimpleEquleEpsilon
+            && Mathf.Abs(a.w - b.w) < SimpleEquleEpsilon;
+    }
 }

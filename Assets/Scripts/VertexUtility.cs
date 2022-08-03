@@ -32,12 +32,15 @@ namespace Geometry
             return v;
         }
 
-        public static AABB TransformAABB(this Transform transform, AABB aabb)
+        public static Vertex Mix(this Vertex x, Vertex y, float weight)
         {
-            AABB res = new AABB();
-            res.m_Min = transform.TransformPoint(aabb.m_Min);
-            res.m_Max = transform.TransformPoint(aabb.m_Max);
-            return res;
+            float i = 1f - weight;
+
+            Vertex v = new Vertex();
+
+            v.Position = x.Position * i + y.Position * weight;
+
+            return v;
         }
     }
 }

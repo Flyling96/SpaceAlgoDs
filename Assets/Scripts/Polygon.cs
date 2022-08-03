@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Geometry
 {
+    [Serializable]
     public class Polygon
     {
         public List<Vertex> m_Vertices;
+
         public Plane m_Plane;
 
         public Polygon(List<Vertex> list)

@@ -9,8 +9,7 @@ namespace Geometry
     [Serializable]
     public class Face
     {
-        [SerializeField]
-        int[] m_Indexes;
+        public int[] m_Indices;
 
         public Face(IEnumerable<int> indices)
         {
@@ -32,7 +31,7 @@ namespace Geometry
                 Debug.LogError("Face indexes must be a multiple of 3.");
                 return;
             }
-            m_Indexes = array;
+            m_Indices = array;
         }
     }
 }

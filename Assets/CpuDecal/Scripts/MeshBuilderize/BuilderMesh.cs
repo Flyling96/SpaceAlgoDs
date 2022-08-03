@@ -6,10 +6,15 @@ using Hierarchy;
 
 namespace MeshBuilderize
 {
+    [ExecuteInEditMode]
     [RequireComponent(typeof(MeshFilter),typeof(MeshRenderer))]
     public partial class BuilderMesh : MonoBehaviour,IBVHContent
     {
         public Model m_Model = null;
+
+        public BSP m_BSPTree = null;
+
+        public bool IsStatic => m_Model != null ? m_Model.m_IsStatic : false;
 
         public AABB AABB
         {
@@ -20,14 +25,7 @@ namespace MeshBuilderize
                     return AABB.Identity();
                 }
 
-                if(m_Model.m_IsStatic)
-                {
-                    return m_Model.m_AABB;
-                }
-                else
-                {
-                    return transform.TransformAABB(m_Model.m_AABB);
-                }
+                return m_Model.m_AABB;
             }
         }
 
@@ -36,12 +34,56 @@ namespace MeshBuilderize
         public void Builderize(bool isStatic = false)
         {
             var mesh = transform.GetComponent<MeshFilter>().sharedMesh;
-            if(mesh == null)
+            if (mesh == null)
             {
                 return;
             }
 
             m_Model = new Model(mesh, transform, isStatic);
+            if (isStatic)
+            {
+                m_BSPTree = new BSP(m_Model);
+            }
+        }
+
+        private Vector3 m_LastPosition;
+        private Quaternion m_LastRotation;
+        private Vector3 m_LastScale;
+
+        private void Update()
+        {
+            TickTransformChange();
+        }
+
+        private void TickTransformChange()
+        {
+            if (m_Model.m_IsStatic)
+            {
+                return;
+            }
+
+            bool isChange = false;
+            if(!m_LastPosition.SimpleEqule(transform.position))
+            {
+                m_LastPosition = transform.position;
+                isChange = true;
+            }
+            else if (!m_LastRotation.SimpleEqule(transform.rotation))
+            {
+                m_LastRotation = transform.rotation;
+                isChange = true;
+            }
+            else if (!m_LastScale.SimpleEqule(transform.localScale))
+            {
+                m_LastScale = transform.localScale;
+                isChange = true;
+            }
+
+            if(isChange)
+            {
+                m_Model.UpdateTranform(transform);
+            }
+
         }
 
     }
