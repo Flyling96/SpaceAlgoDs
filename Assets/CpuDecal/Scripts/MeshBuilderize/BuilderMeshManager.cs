@@ -59,7 +59,7 @@ namespace MeshBuilderize
         public GameObject m_ModelRoot;
         public GameObject m_DecalRoot;
 
-        private void Awake()
+        private void Start()
         {
             if(m_ModelRoot == null)
             {

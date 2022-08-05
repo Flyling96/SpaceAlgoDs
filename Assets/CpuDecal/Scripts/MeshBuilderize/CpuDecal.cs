@@ -101,15 +101,15 @@ namespace MeshBuilderize
                 for (int j = 0; j < polygon.m_Vertices.Count; j++)
                 {
                     var vertex = polygon.m_Vertices[j];
-                    vertex.Position += normal * 0.01f;
-                    vertex.Position = transform.InverseTransformPoint(vertex.Position);
+                    //vertex.Position += normal * 0.01f;
+                    //vertex.Position = transform.InverseTransformPoint(vertex.Position);
                     if (j > 1)
                     {
                         indices.Add(offset);
                         indices.Add(offset + j - 1);
                         indices.Add(offset + j);
                     }
-                    vertices.Add(vertex.Position);
+                    vertices.Add(transform.InverseTransformPoint(vertex.Position + normal * 0.01f));
                     index++;
                 }
             }
@@ -128,7 +128,7 @@ namespace MeshBuilderize
 #if UNITY_EDITOR
     public partial class CpuDecal
     {
-        private void Awake()
+        private void Start()
         {
             if (Application.isPlaying)
             {
@@ -158,7 +158,7 @@ namespace MeshBuilderize
 
             manager = null;
             var parent = transform.parent;
-            if(parent.name == BuilderMeshManager.DecalRootName)
+            if(parent!= null && parent.name == BuilderMeshManager.DecalRootName)
             {
                 if(parent.parent != null)
                 {
