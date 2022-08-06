@@ -137,6 +137,10 @@ namespace MeshBuilderize
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     var child = transform.GetChild(i);
+                    if(!child.gameObject.activeInHierarchy)
+                    {
+                        continue;
+                    }
                     SceneTreeNode childNode = new SceneTreeNode();
                     if(childNode.Build(child))
                     {
@@ -180,14 +184,19 @@ namespace MeshBuilderize
 
         public void StaticModelCloneBuilderize()
         {
-            if(m_Scene == null)
+            if(m_Scene == null || m_ModelRoot == null)
             {
                 return;
             }
 
+            m_BuilderMeshList.Clear();
+            foreach (Transform child in m_ModelRoot.transform)
+            {
+                DestroyImmediate(child.gameObject);
+            }
+
             SceneTreeNode root = new SceneTreeNode();
             root.Build(m_Scene.transform);
-            m_BuilderMeshList.Clear();
             root.BuildMesh(m_ModelRoot.transform, m_BuilderMeshList);
         }
 
