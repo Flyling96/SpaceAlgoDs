@@ -14,9 +14,14 @@ namespace MeshBuilderize
         {
             EditorGUI.BeginChangeCheck();
             var debugDepth = serializedObject.FindProperty("m_DebugDepth");
-            if(debugDepth != null)
+            var scene = serializedObject.FindProperty("m_Scene");
+            if (debugDepth != null)
             {
                 debugDepth.intValue = EditorGUILayout.IntSlider("DebugDepth", debugDepth.intValue, -1, 10);
+            }
+            if(scene != null)
+            {
+                EditorGUILayout.PropertyField(scene);
             }
             if(EditorGUI.EndChangeCheck())
             {
@@ -27,6 +32,10 @@ namespace MeshBuilderize
             if (GUILayout.Button("StaticModelBuilderize"))
             {
                 manager.StaticModelBuilderize();
+            }
+            else if(GUILayout.Button("StaticModelCloneBuilderize"))
+            {
+                manager.StaticModelCloneBuilderize();
             }
             else if (GUILayout.Button("BuildBVHTree"))
             {

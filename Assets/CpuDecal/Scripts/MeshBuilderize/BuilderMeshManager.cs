@@ -56,6 +56,7 @@ namespace MeshBuilderize
 
         public int m_DebugDepth = -1;
 
+        public GameObject m_Scene;
         public GameObject m_ModelRoot;
         public GameObject m_DecalRoot;
 
@@ -107,6 +108,87 @@ namespace MeshBuilderize
                 m_BuilderMeshList.Add(builderMesh);
             }
 
+        }
+
+        private class SceneTreeNode
+        {
+            public Transform m_Content;
+
+            public List<SceneTreeNode> m_Children = new List<SceneTreeNode>();
+
+
+            public bool Build(Transform transform)
+            {
+                m_Content = transform;
+
+                if (transform.childCount == 0)
+                {
+                    var filter = transform.GetComponent<MeshFilter>();
+                    if(filter != null && filter.sharedMesh != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    var child = transform.GetChild(i);
+                    SceneTreeNode childNode = new SceneTreeNode();
+                    if(childNode.Build(child))
+                    {
+                        m_Children.Add(childNode);
+                    }
+                }
+
+                if(m_Children.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+
+            public void BuildMesh(Transform parent,List<BuilderMesh> list)
+            {
+                var clone = new GameObject(m_Content.name);
+                clone.transform.SetParent(parent);
+                clone.transform.localPosition = m_Content.localPosition;
+                clone.transform.localRotation = m_Content.localRotation;
+                clone.transform.localScale = m_Content.localScale;
+                var filter = m_Content.GetComponent<MeshFilter>();
+                if(filter != null && filter.sharedMesh != null)
+                {
+                    var builderMesh = clone.AddComponent<BuilderMesh>();
+                    builderMesh.Builderize(true,filter.sharedMesh);
+                    list.Add(builderMesh);
+                }
+
+                for (int i = 0; i < m_Children.Count; i++)
+                {
+                    var child = m_Children[i];
+                    child.BuildMesh(clone.transform, list);
+                }
+            }
+        }
+
+        public void StaticModelCloneBuilderize()
+        {
+            if(m_Scene == null)
+            {
+                return;
+            }
+
+            SceneTreeNode root = new SceneTreeNode();
+            root.Build(m_Scene.transform);
+            m_BuilderMeshList.Clear();
+            root.BuildMesh(m_ModelRoot.transform, m_BuilderMeshList);
         }
 
         private void OnDrawGizmosSelected()

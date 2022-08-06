@@ -31,12 +31,15 @@ namespace MeshBuilderize
 
         public MonoBehaviour Mono => this;
 
-        public void Builderize(bool isStatic = false)
+        public void Builderize(bool isStatic = false,Mesh mesh = null)
         {
-            var mesh = transform.GetComponent<MeshFilter>().sharedMesh;
             if (mesh == null)
             {
-                return;
+                mesh = transform.GetComponent<MeshFilter>().sharedMesh;
+                if (mesh == null)
+                {
+                    return;
+                }
             }
 
             m_Model = new Model(mesh, transform, isStatic);
@@ -45,6 +48,7 @@ namespace MeshBuilderize
                 m_BSPTree = new BSP(m_Model);
             }
         }
+
 
         private Vector3 m_LastPosition;
         private Quaternion m_LastRotation;

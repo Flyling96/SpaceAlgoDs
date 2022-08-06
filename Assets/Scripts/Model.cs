@@ -156,7 +156,7 @@ namespace Geometry
 
         public void UpdateTranform(Transform trans)
         {
-            if(m_IsStatic)
+            if(m_IsStatic || m_Vertices == null)
             {
                 return;
             }
